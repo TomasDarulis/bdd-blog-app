@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'pry', '~> 0.12.2'
 gem "awesome_print"
 gem 'rake', '< 11'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
@@ -56,7 +57,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'guard', '~> 2.14.0'
+  gem 'guard', '~> 2.14.1'
   gem 'guard-rspec', '~> 4.7.2'
   gem 'guard-cucumber', '~> 2.1.2'
 end
