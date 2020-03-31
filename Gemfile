@@ -7,7 +7,7 @@ end
 
 gem 'pry', '~> 0.12.2'
 gem "awesome_print"
-gem 'rake', '< 11'
+gem 'rake', '< 13'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.1'
