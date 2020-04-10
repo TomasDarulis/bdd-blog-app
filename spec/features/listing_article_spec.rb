@@ -3,8 +3,9 @@ require 'faker'
 
 RSpec.feature "Listing Articles" do
     before do
-        @article1 = Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph)
-        @article2 = Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph)
+        user = User.create!(email: Faker::Internet.email, password: Faker::Number.number(digits: 6))
+        @article1 = Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph, user: user)
+        @article2 = Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph, user: user)
     end
 
     scenario "A user lists all articles" do
