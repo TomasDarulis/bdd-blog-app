@@ -3,10 +3,37 @@ require 'faker'
 
 RSpec.feature "Listing Articles" do
     before do
-        user = User.create!(email: Faker::Internet.email, password: Faker::Number.number(digits: 6))
-        @article1 = Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph, user: user)
-        @article2 = Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph, user: user)
+        @user = User.create!(email: Faker::Internet.email, password: Faker::Number.number(digits: 6))
+        @article1 = Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph, user: @user)
+        @article2 = Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph, user: @user)
     end
+
+    scenario "With articles created and user not signed in" do
+        visit "/"
+
+        expect(page).to have_content(@article1.title)
+        expect(page).to have_content(@article1.body)
+        expect(page).to have_content(@article2.title)
+        expect(page).to have_content(@article2.body)
+        expect(page).to have_link(@article1.title)
+        expect(page).to have_link(@article2.title)
+        expect(page).not_to have_link("New Article")
+    end
+
+    scenario "With articles created and user signed in" do
+        login_as(@user)
+        visit "/"
+
+        expect(page).to have_content(@article1.title)
+        expect(page).to have_content(@article1.body)
+        expect(page).to have_content(@article2.title)
+        expect(page).to have_content(@article2.body)
+        expect(page).to have_link(@article1.title)
+        expect(page).to have_link(@article2.title)
+        expect(page).to have_link("New Article")
+    end
+
+
 
     scenario "A user lists all articles" do
         visit "/"
