@@ -2,6 +2,12 @@ require "rails_helper"
 require 'faker'
 
 RSpec.feature "Creating Articles" do
+
+    before do
+        @user = User.create!(email: Faker::Internet.email, password: Faker::Number.number(digits: 6))
+        login_as(@user)
+    end
+
     scenario "A user creates a new article" do
         visit "/"
 
@@ -12,8 +18,10 @@ RSpec.feature "Creating Articles" do
 
         click_button "Create Article"
 
+        expect(Article.last.user).to eq(@user)
         expect(page).to have_content("Article has been created")
         expect(page.current_path).to eq(articles_path)
+        expect(page).to have_content("Created by: #{@user.email}")
     end
 
     scenario "A user fails to create a new article" do
