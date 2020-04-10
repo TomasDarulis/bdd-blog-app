@@ -3,7 +3,9 @@ require 'faker'
 
 RSpec.feature "Editing an article" do
     before do
-        @article = Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph)
+        user = User.create!(email: Faker::Internet.email, password: Faker::Number.number(digits: 6))
+        login_as(user)
+        @article = Article.create(title: Faker::Lorem.sentence, body: Faker::Lorem.paragraph, user: user)
     end
 
     scenario "A user updates an article" do

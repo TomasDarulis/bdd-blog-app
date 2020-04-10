@@ -15,7 +15,6 @@ RSpec.feature "Creating Articles" do
 
         fill_in "Title", with: Faker::Lorem.sentence
         fill_in "Body", with: Faker::Lorem.paragraph
-
         click_button "Create Article"
 
         expect(Article.last.user).to eq(@user)
